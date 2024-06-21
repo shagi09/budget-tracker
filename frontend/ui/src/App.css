@@ -1,42 +1,85 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+body{
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  margin: 0px;
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.logo{
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.btn{
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #0dcd3a;
+  color: white;
 }
+.btn:hover{
+  background-color: #c7f8d1;
+  color: rgb(33, 203, 118);
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
+.get-started-btn{
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #0dcd3a;
+  color: white;
+  margin-left: 260px;
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
 }
-
-.card {
-  padding: 2em;
+nav{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 150px;
+  margin-right: 150px;
 }
+nav ul li{
+  display: inline-block;
+  margin-right: 30px;
+  color: white;
+}
+.logo-container{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+.content{
+display: block;
+align-items: center;
+margin-left: 30%;
+margin-top: 10%;
+width: 700px;
+}
+.content h1{
+  font-size: 60px;
+  color: rgb(252, 250, 250);
+}
+.content p{
+  font-size: 20px;
+  color: rgb(227, 252, 232);
 
-.read-the-docs {
-  color: #888;
+
+}
+span{
+  margin-left: 200px;
+  color: #0dcd3a;
+}
+.p-1{
+margin-left: 140px;
+
+}
+.p-2{
+  margin-left: 120px;
+  margin-top: 0%;
+
+}
+.p-3{
+  margin-left: 240px;
 }
