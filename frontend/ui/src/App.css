@@ -30,7 +30,13 @@ body{
   padding: 10px;
   background-color: #0dcd3a;
   color: white;
-  margin-left: 260px;
+  margin-left: 265px;
+  border: none;
+
+}
+.get-started-btn:hover{
+  background-color: #c7f8d1;
+  color: rgb(33, 203, 118);
 
 }
 nav{
