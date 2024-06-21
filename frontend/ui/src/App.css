@@ -2,7 +2,7 @@ body{
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-style: normal;
-  background-color: black;
+  background-color: rgb(11, 10, 10);
   background-size: cover;
   background-position: center;
   margin: 0px;
@@ -50,6 +50,13 @@ nav ul li{
   margin-right: 30px;
   color: white;
 }
+nav ul li a{
+  text-decoration: none;
+  color: white;
+}
+nav ul li a:hover{
+  color: rgb(28, 186, 59);
+}
 .logo-container{
   display: flex;
   align-items: center;
@@ -88,4 +95,16 @@ margin-left: 140px;
 }
 .p-3{
   margin-left: 240px;
+}
+.expense-container{
+  color: white;
+}
+.income-container{
+  color: white;
+}
+.transaction-container  {
+  color: white;
+}
+.statistics-container {
+  color: white;
 }
