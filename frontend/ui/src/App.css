@@ -162,4 +162,8 @@ input:focus {
     align-items: center;
     justify-content: center;
   }
+  .income-btn:hover{
+    color: #15ad3b;
+    background-color: white;
+  }
 
