@@ -15,6 +15,7 @@ const Income = () => {
     description:''
 
   })
+  const [error,setError]=useState('')
 
   function HandleChange(e){
     setFormData({
@@ -23,6 +24,32 @@ const Income = () => {
     })
 
 }
+function HandleSubmit(e){
+  e.preventDefault()
+  let emptyFieldCount = 0;
+for (const [key, value] of Object.entries(formData)) {
+  if (value === '') {
+    emptyFieldCount++;
+  }
+}
+  if(formData.amount===''){
+    setError('please enter amount')
+  }
+  if(formData.date===''){
+    setError('please enter date')
+  }
+  if(formData.category===''){
+    setError('please select income type')
+  }
+  if(formData.description===''){
+    setError('please enter description')
+  }
+  if(emptyFieldCount>2){
+    setError('please fill all the fields')
+  }
+
+}
+
   const Incomes=[
     {
       id: 1,
@@ -53,9 +80,10 @@ const Income = () => {
     <div className='income-container'>
         <h1>Incomes</h1>
         <h2>Total Income:{formData.amount}$</h2>
+        {error && <div style={{backgroundColor: 'red',width:'320px',marginLeft: '100px',marginBottom:'20px',borderRadius: '20px',padding: '10px'}}>{error}</div>}
         <div className='form-container'> 
           <form className='form' action="">
-            <input name='amount' type="number" placeholder='Income Amount' value={formData.amount} onChange={HandleChange}/>
+            <input name='amount' type="number" placeholder='Income Amount' value={formData.amount} onChange={HandleChange} required=''/>
             <input name='date' type="date" placeholder='Enter a Date' value={formData.date} onChange={HandleChange}/>
             <select name="category" id="" value={formData.category} onChange={HandleChange}>
               <option value='Salary'>Salary</option>
@@ -66,7 +94,7 @@ const Income = () => {
               <option value="Others">Others</option>
             </select>
             <input name='description' type="text" placeholder='Income Description' value={formData.description} onChange={HandleChange}/>
-            <button className='income-btn'><IoIosAdd style={{fontSize: '20px',padding:'2px'}}/> Add Income</button>
+            <button type='submit'onClick={HandleSubmit} className='income-btn'><IoIosAdd style={{fontSize: '20px',padding:'2px'}}/> Add Income</button>
           </form>
           <div className='incomes'>
             {
@@ -75,9 +103,9 @@ const Income = () => {
                   <div className='income-category'><GoDotFill/>{income.category} </div>
                   <div className='income-contents'>
                     <div className='income-icon'><FaBitcoin style={{fontSize: '25px'}}/></div>
-                    <div className='income-amount'><FaDollarSign style={{fontSize: '15px'}}/>{income.amount} </div>
+                    <div className='income-amount'><FaDollarSign className='dollar'style={{fontSize: '15px'}}/>{income.amount} </div>
                     <div className='income-date'><MdOutlineDateRange style={{fontSize: '15px'}}/>{income.date} </div>
-                    <div className='income-description'><FaMessage style={{fontSize: '12px'}}/>{income.description} </div>
+                    <div className='income-description'><FaMessage style={{fontSize: '10px'}}/>{income.description} </div>
                     <div className='delete-income'><button className='dlt-btn'><MdDelete style={{fontSize: '25px'}}/></button></div>
                   </div>
 

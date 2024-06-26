@@ -277,7 +277,7 @@ input:focus {
   margin-top: 10px;
 }
 .income-box{
-  background-color: rgb(6, 134, 27);
+  background-color: rgb(8, 152, 32);
   margin-top: 15px;
   padding: 20px;
   border-radius: 20px;
@@ -297,5 +297,6 @@ input:focus {
 .income-icon{
   margin-left: 20px;
 }
+
 
 
