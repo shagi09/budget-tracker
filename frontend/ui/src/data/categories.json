@@ -1,0 +1,22 @@
+[
+    {
+        "label":"bitcoin",
+        "income":2000,
+        "expense":1000
+    },
+    {
+        "label":"salary",
+        "income":2000,
+        "expense":1000
+    },
+    {
+        "label":"charity",
+        "income":2000,
+        "expense":1000
+    },
+    {
+        "label":"groceries",
+        "income":3000,
+        "expense":2000
+    }
+]
