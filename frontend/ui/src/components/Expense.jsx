@@ -80,14 +80,6 @@ for (const [key, value] of Object.entries(formData)) {
   ]
   return (
     <div className='income-container'>
-      <nav className='profile-logout'>
-        <div className='profile'>
-        <img src={image} alt="" />
-        <Link className='user-profile'>Profile</Link>
-        </div>
-
-      <button className='log-out'>Log Out</button>
-      </nav>
 
         <h1>Expenses</h1>
         <h2>Total Expense:{formData.amount}-$</h2>
