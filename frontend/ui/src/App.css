@@ -2,7 +2,7 @@ body{
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-style: normal;
-  background-color: #333;
+  background-color: #2d2a2a;
   background-size: cover;
   background-position: center;
   margin: 0px;
@@ -15,7 +15,9 @@ body{
 }
 .logo-container p{
   font-size: 20px;
+  text-decoration: none;
 }
+
 .btn{
   border: none;
   border-radius: 20px;
@@ -129,7 +131,7 @@ margin-left: 540px;
   display: flex;
   justify-content: flex-start;
   gap: 2rem;
-  background-color: #383737;
+  background-color: #2c2929;
   margin-left: 60px;
 }
 .spending-content{

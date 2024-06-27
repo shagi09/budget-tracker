@@ -37,10 +37,18 @@ const Statistics = () => {
                 display: true,
                 text: "Trends",
                 color: 'white',
+                font: {
+                  size: 35 // Increase title font size
+                }
+        
               },
               legend: {
                 labels: {
-                  color: 'white' // Change legend label color
+                  color: 'white',
+                  font: {
+                    size: 15 // Increase title font size
+                  }
+           // Change legend label color
                 }
               }
 
@@ -87,11 +95,19 @@ const Statistics = () => {
               title:{
                 display: true,
                 text: "Categories",
-                color: 'white'
+                color: 'white',
+                font: {
+                  size: 35// Increase title font size
+                }
+        
               },
               legend: {
                 labels: {
-                  color: 'white' // Change legend label color
+                  color: 'white',
+                  font: {
+                    size: 15 // Increase title font size
+                  }
+           // Change legend label color
                 }
               }
 

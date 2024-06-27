@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <div>
         <nav>
-            <div className='logo-container'><img className='logo' src={logo} alt="" /><p><b>KOTABI</b></p></div>
+            <div ><Link className='logo-container' to='/'><img className='logo' src={logo} alt="" /><p><b>KOTABI</b></p></Link></div>
             <div className='profile'>
               <Link to='/userprofile' className='user-profile'>
               <img src={image} alt="" />
