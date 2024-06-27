@@ -236,6 +236,17 @@ input:focus {
     align-items: center;
     justify-content: center;
   }
+  .expense-btn{
+    padding: 16px 20px;
+    border-radius: 30px;
+    background-color: #b01206;
+    border: none;
+    width: 150px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .income-btn:hover{
     color: #15ad3b;
     background-color: white;
@@ -297,6 +308,33 @@ input:focus {
 .income-icon{
   margin-left: 20px;
 }
+.user-profile{
+
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  margin-left: 350px;
+}
+.text{
+  margin-left: 350px;
+}
+.log-out{
+  border-radius: 20px;
+  color: white;
+  background-color: rgb(198, 13, 13);
+  border: none;
+  padding: 15px;
+}
+.profile img{
+width: 50px; 
+height: auto; 
+border-radius: 100px;
+
+
+}
+
+
+
 
 
 

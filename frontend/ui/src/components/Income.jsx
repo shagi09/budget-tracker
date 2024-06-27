@@ -7,6 +7,8 @@ import { FaBitcoin } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
 
+
+
 const Income = () => {
   const [formData,setFormData]=useState({
     amount:'',
