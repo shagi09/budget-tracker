@@ -2,8 +2,14 @@ import React from 'react'
 import logo from '../images/logo.png'
 import { Link } from 'react-router-dom'
 import image from '/src/images/profile.jpg'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const navigate=useNavigate()
+  function HandleSignIn(){
+    navigate('/signup')
+
+  }
   return (
     <div>
         <nav>
@@ -24,7 +30,7 @@ const Header = () => {
                 <li><Link to='/transaction'>Transactions</Link></li>
                 <li><Link to='/income'>Incomes</Link></li>
                 <li><Link to='/expense'>Expenses</Link></li>
-                <li><button className='btn'>Sign Up</button></li>
+                <li><button className='btn' onClick={HandleSignIn}>Sign Up</button></li>
                 <button className='log-out'>Log Out</button>
             </ul>
 
