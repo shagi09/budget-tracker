@@ -8,6 +8,7 @@ app.use(express.json())
 
 const url='mongodb://127.0.0.1:27017/budget'
 mongoose.connect(url).then((result)=>{
+    console.log('Successfully connected to the database');
     app.listen(6000,()=>{
         console.log('app listening on port 6000')
     })
