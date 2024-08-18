@@ -82,7 +82,7 @@ for (const [key, value] of Object.entries(formData)) {
     <div className='income-container'>
         <h1>Incomes</h1>
         <h2>Total Income:{formData.amount}$</h2>
-        {error && <div style={{backgroundColor: 'red',width:'320px',marginLeft: '100px',marginBottom:'20px',borderRadius: '20px',padding: '10px'}}>{error}</div>}
+        {error && <div style={{backgroundColor: 'green',width:'320px',marginLeft: '100px',marginBottom:'20px',borderRadius: '20px',padding: '10px'}}>{error}</div>}
         <div className='form-container'> 
           <form className='form' action="">
             <input name='amount' type="number" placeholder='Income Amount' value={formData.amount} onChange={HandleChange} required=''/>
