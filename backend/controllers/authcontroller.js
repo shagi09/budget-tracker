@@ -15,7 +15,7 @@ module.exports.SignUp_Post=async(req,res)=>{
     try{
         const user=await User.create({email,password})
         const token=createToken(user._id)
-        res.cookie('jwt',token,{httpOnly:true})
+        res.cookie('jwt',token,{httpOnly:true,maxAge: 3600000})
 
         res.json(user);
 
@@ -38,9 +38,13 @@ module.exports.LogIn_Post=async(req,res)=>{
        return res.json('incorrect password')
     }
     const token=createToken(user._id)
-    res.cookie('jwt',token,{httpOnly:true})
+    res.cookie('jwt',token,{httpOnly:true,maxAge: 3600000})
         res.json(user)
     
 
 
+}
+module.exports.LogOut_Post=async(req,res)=>{
+    res.cookie('jwt','',{maxAge:0})
+    res.json('logout success')
 }
