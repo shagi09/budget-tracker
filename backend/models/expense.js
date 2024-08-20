@@ -3,7 +3,6 @@ const ExpenseSchema=new mongoose.Schema({
     amount:{
         type:Number,
         required:true,
-        unique:true
 
     },
     date: {
@@ -13,6 +12,7 @@ const ExpenseSchema=new mongoose.Schema({
     category:{
         type:String,
         required:true,
+        unique:true
     },
     description:{
         type:String,
