@@ -2,6 +2,7 @@ const mongoose=require('mongoose')
 const express=require('express')
 const authroutes=require('./routes/authroutes')
 const expenseroutes=require('./routes/expenseroutes')
+const incomeroutes=require('./controllers/incomecontroller')
 
 const app=express();
 
@@ -20,3 +21,4 @@ mongoose.connect(url).then((result)=>{
 
 app.use(authroutes)
 app.use(expenseroutes)
+app.use(incomeroutes)
