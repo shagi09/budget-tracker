@@ -13,9 +13,9 @@ module.exports.expense_Get=async (req,res)=>{
 
 }
 module.exports.expense_Post=async (req,res)=>{
-    const{amount,category,description}=req.body
+    const{amount,category,description,date}=req.body
     try{
-        const expense=await Expense.create({amount,category,description})
+        const expense=await Expense.create({amount,category,description,date})
         res.status(201).json(expense)
     }
     catch(err){
@@ -39,10 +39,10 @@ module.exports.expense_Delete=async (req,res)=>{
     };
 
 module.exports.expense_Put=async (req,res)=>{
-    const {  amount,category,description } = req.body;
+    const {  amount,category,description,date } = req.body;
 
     try {
-        const expense = await Expense.findByIdAndUpdate(req.params.id, {  amount,category,description }, { new: true });
+        const expense = await Expense.findByIdAndUpdate(req.params.id, {  amount,category,description,date }, { new: true });
         if (!expense) {
             return res.status(404).json({ error: 'Expense not found' });
         }

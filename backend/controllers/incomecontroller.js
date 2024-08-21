@@ -13,9 +13,9 @@ module.exports.income_Get=async (req,res)=>{
 
 }
 module.exports.income_Post=async (req,res)=>{
-    const{amount,category,description}=req.body
+    const{amount,category,description,date}=req.body
     try{
-        const income=await Income.create({amount,category,description})
+        const income=await Income.create({amount,category,description,date})
         res.status(201).json(income)
     }
     catch(err){
@@ -39,10 +39,10 @@ module.exports.income_Delete=async (req,res)=>{
     };
 
 module.exports.income_Put=async (req,res)=>{
-    const {  amount,category,description } = req.body;
+    const {  amount,category,description,date } = req.body;
 
     try {
-        const income = await Income.findByIdAndUpdate(req.params.id, {  amount,category,description }, { new: true });
+        const income = await Income.findByIdAndUpdate(req.params.id, {  amount,category,description,date }, { new: true });
         if (!income) {
             return res.status(404).json({ error: 'income not found' });
         }
