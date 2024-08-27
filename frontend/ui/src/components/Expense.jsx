@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 import axios from 'axios'
 import { IoIosAdd } from "react-icons/io";
 import { FaDollarSign } from "react-icons/fa";
@@ -15,6 +16,7 @@ const Expense = () => {
   const[date,setDate]=useState('')
   const[category,setCategory]=useState('')
   const[description,setDescription]=useState('')
+  const[expenses,setExpenses]=useState('')
 
   const [error,setError]=useState('')
 
@@ -49,26 +51,22 @@ async function HandleSubmit (e){
 
 
 }
+async function fetchExpenses(){
+  try{
+    const response=await axios.get('http://localhost:5000/expense')
+    setExpenses(response.data)
+}
+  catch(err){
+    console.log(err)
 
-  const Incomes=[
-    {
-      id: 1,
-      amount: '2000 birr',
-      date:'22/04/2022',
-      category:'bitcoin',
-      description:'this is bitcoin income'
+  }
 
-    },
-    {
-      id: 1,
-      amount: '2000 birr',
-      date:'22/04/2022',
-      category:'bitcoin',
-      description:'this is bitcoin income'
+}
+useEffect(()=>{
+  fetchExpenses()
+},[])
 
-    }
 
-  ]
   return (
     <div className='income-container'>
 
@@ -80,26 +78,29 @@ async function HandleSubmit (e){
             <input name='amount' type="number" placeholder='Expense Amount' value={amount} onChange={(e)=>{setAmount(e.target.value)}} required=''/>
             <input name='date' type="date" placeholder='Enter a Date' value={date} onChange={(e)=>{setDate(e.target.value)}}/>
             <select name="category" type="text" id="" value={category} onChange={(e)=>{setCategory(e.target.value)}}>
-              <option value='Salary'>Salary</option>
-              <option value="Freelance">Freelance</option>
+              <option value='rent'>House Rent</option>
+              <option value="transport">Transportation</option>
               <option value="Investments">Investments</option>
               <option value="Stocks">Stocks</option>
-              <option value="Youtube">Youtube</option>
-              <option value="Others">Others</option>
+              <option value="food">Food and Groceries</option>
+              <option value="Others">Health</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="education">Education</option>
+              <option value="debt">debt</option>
             </select>
             <input name='description' type="text" placeholder='Expense Description' value={description} onChange={(e)=>{setDescription(e.target.value)}}/>
             <button type='submit'onClick={HandleSubmit} className='expense-btn'><IoIosAdd style={{fontSize: '20px',padding:'2px'}}/> Add Expense</button>
           </form>
           <div className='incomes'>
             {
-              Incomes.map((income)=>(
-                <div className='income-box' key={Incomes.id}>
-                  <div className='income-category'><GoDotFill/>{income.category} </div>
+              expenses.map((expense)=>(
+                <div className='income-box' key={expense.id}>
+                  <div className='income-category'>{expense.category} </div>
                   <div className='income-contents'>
                     <div className='income-icon'><FaBitcoin style={{fontSize: '25px'}}/></div>
-                    <div className='income-amount'><FaDollarSign className='dollar'style={{fontSize: '15px'}}/>{income.amount} </div>
-                    <div className='income-date'><MdOutlineDateRange style={{fontSize: '15px'}}/>{income.date} </div>
-                    <div className='income-description'><FaMessage style={{fontSize: '10px'}}/>{income.description} </div>
+                    <div className='income-amount'><FaDollarSign className='dollar'style={{fontSize: '15px'}}/>{expense.amount} </div>
+                    <div className='income-date'><MdOutlineDateRange style={{fontSize: '15px'}}/>{expense.date} </div>
+                    <div className='income-description'><FaMessage style={{fontSize: '10px'}}/>{expense.description} </div>
                     <div className='delete-income'><button className='dlt-btn'><MdDelete style={{fontSize: '25px'}}/></button></div>
                   </div>
 
