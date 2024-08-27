@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import { IoIosAdd } from "react-icons/io";
 import { FaDollarSign } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";
@@ -10,45 +11,42 @@ import {Link} from 'react-router-dom'
 import image from '/src/images/profile.jpg'
 
 const Expense = () => {
-  const [formData,setFormData]=useState({
-    amount:'',
-    date:'',
-    category:'',
-    description:''
+  const[amount,setAmount]=useState('')
+  const[date,setDate]=useState('')
+  const[category,setCategory]=useState('')
+  const[description,setDescription]=useState('')
 
-  })
   const [error,setError]=useState('')
 
-  function HandleChange(e){
-    setFormData({
-      ...formData,
-      [e.target.name]:e.target.value
-    })
-
-}
-function HandleSubmit(e){
+async function HandleSubmit (e){
   e.preventDefault()
-  let emptyFieldCount = 0;
-for (const [key, value] of Object.entries(formData)) {
-  if (value === '') {
-    emptyFieldCount++;
+  try{
+    await axios.post('http://localhost:5000/expense',{
+      amount,date,category,description});
+      setAmount('')
+      setCategory('')
+      setDate('')
+      setDescription('')
+
+    let emptyFieldCount = 0;
+      if(amount===''){
+        setError('please enter amount')
+      }
+      if(date===''){
+        setError('please enter date')
+      }
+      if(category===''){
+        setError('please select income type')
+      }
+      if(description===''){
+        setError('please enter description')
+      }
   }
-}
-  if(formData.amount===''){
-    setError('please enter amount')
+  catch(err){
+    console.log(err)
+
   }
-  if(formData.date===''){
-    setError('please enter date')
-  }
-  if(formData.category===''){
-    setError('please select income type')
-  }
-  if(formData.description===''){
-    setError('please enter description')
-  }
-  if(emptyFieldCount>2){
-    setError('please fill all the fields')
-  }
+
 
 }
 
@@ -68,27 +66,20 @@ for (const [key, value] of Object.entries(formData)) {
       category:'bitcoin',
       description:'this is bitcoin income'
 
-    },
-    {
-      id: 1,
-      amount: '2000 birr',
-      date:'22/04/2022',
-      category:'bitcoin',
-      description:'this is bitcoin income'
-
     }
+
   ]
   return (
     <div className='income-container'>
 
         <h1>Expenses</h1>
-        <h2>Total Expense:{formData.amount}-$</h2>
+        <h2>Total Expense:-{amount}$</h2>
         {error && <div style={{backgroundColor: 'red',width:'320px',marginLeft: '100px',marginBottom:'20px',borderRadius: '20px',padding: '10px'}}>{error}</div>}
         <div className='form-container'> 
           <form className='form' action="">
-            <input name='amount' type="number" placeholder='Expense Amount' value={formData.amount} onChange={HandleChange} required=''/>
-            <input name='date' type="date" placeholder='Enter a Date' value={formData.date} onChange={HandleChange}/>
-            <select name="category" id="" value={formData.category} onChange={HandleChange}>
+            <input name='amount' type="number" placeholder='Expense Amount' value={amount} onChange={(e)=>{setAmount(e.target.value)}} required=''/>
+            <input name='date' type="date" placeholder='Enter a Date' value={date} onChange={(e)=>{setDate(e.target.value)}}/>
+            <select name="category" type="text" id="" value={category} onChange={(e)=>{setCategory(e.target.value)}}>
               <option value='Salary'>Salary</option>
               <option value="Freelance">Freelance</option>
               <option value="Investments">Investments</option>
@@ -96,7 +87,7 @@ for (const [key, value] of Object.entries(formData)) {
               <option value="Youtube">Youtube</option>
               <option value="Others">Others</option>
             </select>
-            <input name='description' type="text" placeholder='Expense Description' value={formData.description} onChange={HandleChange}/>
+            <input name='description' type="text" placeholder='Expense Description' value={description} onChange={(e)=>{setDescription(e.target.value)}}/>
             <button type='submit'onClick={HandleSubmit} className='expense-btn'><IoIosAdd style={{fontSize: '20px',padding:'2px'}}/> Add Expense</button>
           </form>
           <div className='incomes'>
