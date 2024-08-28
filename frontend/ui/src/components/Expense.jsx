@@ -64,6 +64,7 @@ async function fetchExpenses(){
   try{
     const response=await axios.get('http://localhost:5000/expense')
     setExpenses(response.data)
+    console.log(response.data)
 }
   catch(err){
     console.log(err)
@@ -74,6 +75,16 @@ async function fetchExpenses(){
 useEffect(()=>{
   fetchExpenses()
 },[])
+ async function HandleDelete(id){
+  setExpenses(expenses.filter(expense => expense.id !== id));
+    try {
+      await axios.delete(`http://localhost:5000/expense/${id}`);
+
+    } catch (error) {
+      console.error('Error deleting expense:', error);
+    }
+  };
+
 function displayCategoryIcon(category) {
   const categoryIcons = {
     'Investments': <FaBitcoin style={{ fontSize: '25px' }} />,
@@ -127,9 +138,11 @@ function displayCategoryIcon(category) {
                   <div className='income-contents'>
                     <div className='income-icon'>{displayCategoryIcon(expense.category)}</div>
                     <div className='income-amount'><FaDollarSign className='dollar'style={{fontSize: '15px'}}/>{expense.amount} </div>
-                    <div className='income-date'><MdOutlineDateRange style={{fontSize: '15px'}}/>{expense.date} </div>
+                    <div className='income-date'><MdOutlineDateRange style={{fontSize: '15px'}}/>{expense.date.split('T')[0]} </div>
                     <div className='income-description'><FaMessage style={{fontSize: '10px'}}/>{expense.description} </div>
-                    <div className='delete-income'><button className='dlt-btn'><MdDelete style={{fontSize: '25px'}}/></button></div>
+                    <div className='delete-income'><button className='dlt-btn' onClick={()=>{
+                          console.log('Deleting expense ID:', expense._id)
+                          HandleDelete(expense._id)}}><MdDelete style={{cursor:'pointer', fontSize: '25px'}}/></button></div>
                   </div>
 
 
