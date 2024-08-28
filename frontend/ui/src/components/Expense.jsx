@@ -8,6 +8,15 @@ import { FaMessage } from "react-icons/fa6";
 import { FaBitcoin } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
+import { MdFastfood } from "react-icons/md";
+import { MdCastForEducation } from "react-icons/md";
+import { MdEmojiTransportation } from "react-icons/md";
+import { RiStockLine } from "react-icons/ri";
+import { FaHouseChimney } from "react-icons/fa6";
+import { SiDcentertainment } from "react-icons/si";
+import { CiCirclePlus } from "react-icons/ci";
+import { GiHealthNormal } from "react-icons/gi";
+import { FcDebt } from "react-icons/fc";
 import {Link} from 'react-router-dom'
 import image from '/src/images/profile.jpg'
 
@@ -16,7 +25,7 @@ const Expense = () => {
   const[date,setDate]=useState('')
   const[category,setCategory]=useState('')
   const[description,setDescription]=useState('')
-  const[expenses,setExpenses]=useState('')
+  const[expenses,setExpenses]=useState([])
 
   const [error,setError]=useState('')
 
@@ -65,6 +74,24 @@ async function fetchExpenses(){
 useEffect(()=>{
   fetchExpenses()
 },[])
+function displayCategoryIcon(category) {
+  const categoryIcons = {
+    'Investments': <FaBitcoin style={{ fontSize: '25px' }} />,
+    'Food and Groceries': <MdFastfood className='dollar' style={{ fontSize: '25px' }} />,
+    'House Rent': <FaHouseChimney className='dollar' style={{ fontSize: '25px' }} />,
+    'Transportation': <MdEmojiTransportation className='dollar' style={{ fontSize: '25px' }} />,
+    'Stocks': <RiStockLine className='dollar' style={{ fontSize: '25px' }} />,
+    'Health': <GiHealthNormal className='dollar' style={{ fontSize: '25px' }} />,
+    'Entertainment': <SiDcentertainment className='dollar' style={{ fontSize: '25px' }} />,
+    'Education': <MdCastForEducation className='dollar' style={{ fontSize: '25px' }} />,
+    'debt': <FcDebt className='dollar' style={{ fontSize: '25px' }} />,
+    'others': <CiCirclePlus className='dollar' style={{ fontSize: '25px' }} />,
+
+  };
+
+  return categoryIcons[category] || <GoDotFill />;
+}
+
 
 
   return (
@@ -87,6 +114,7 @@ useEffect(()=>{
               <option value="entertainment">Entertainment</option>
               <option value="education">Education</option>
               <option value="debt">debt</option>
+              <option value="others">others</option>
             </select>
             <input name='description' type="text" placeholder='Expense Description' value={description} onChange={(e)=>{setDescription(e.target.value)}}/>
             <button type='submit'onClick={HandleSubmit} className='expense-btn'><IoIosAdd style={{fontSize: '20px',padding:'2px'}}/> Add Expense</button>
@@ -97,7 +125,7 @@ useEffect(()=>{
                 <div className='income-box' key={expense.id}>
                   <div className='income-category'>{expense.category} </div>
                   <div className='income-contents'>
-                    <div className='income-icon'><FaBitcoin style={{fontSize: '25px'}}/></div>
+                    <div className='income-icon'>{displayCategoryIcon(expense.category)}</div>
                     <div className='income-amount'><FaDollarSign className='dollar'style={{fontSize: '15px'}}/>{expense.amount} </div>
                     <div className='income-date'><MdOutlineDateRange style={{fontSize: '15px'}}/>{expense.date} </div>
                     <div className='income-description'><FaMessage style={{fontSize: '10px'}}/>{expense.description} </div>
