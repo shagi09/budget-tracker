@@ -27,17 +27,35 @@ const Expense = () => {
   const[description,setDescription]=useState('')
   const[expenses,setExpenses]=useState([])
 
+
   const [error,setError]=useState('')
 
 async function HandleSubmit (e){
   e.preventDefault()
+  const newExpense = {
+    amount,
+    date,
+    category,
+    description,
+  };
   try{
-    await axios.post('http://localhost:5000/expense',{
-      amount,date,category,description});
-      setAmount('')
-      setCategory('')
-      setDate('')
-      setDescription('')
+    setExpenses(prevExpenses => [
+      ...prevExpenses,
+      { ...newExpense,id: Date.now()  } // Temporarily assign an ID
+    ]);
+
+    
+    const response=await axios.post('http://localhost:5000/expense',newExpense)
+    setExpenses(prevExpenses => 
+      prevExpenses.map(expense => 
+        expense.id === Date.now() ? response.data : expense
+      )
+    );
+    setAmount(''),
+    setDate(''),
+    setCategory('')
+    setDescription('')
+
 
     let emptyFieldCount = 0;
       if(amount===''){
@@ -54,7 +72,7 @@ async function HandleSubmit (e){
       }
   }
   catch(err){
-    console.log(err)
+    console.log('error adding the data:',err)
 
   }
 
@@ -76,12 +94,17 @@ useEffect(()=>{
   fetchExpenses()
 },[])
  async function HandleDelete(id){
-  setExpenses(expenses.filter(expense => expense.id !== id));
+  const expenseToDelete = expenses.find(expense => expense._id === id);
+
+  // Optimistically remove the expense from the state
+  const updatedExpenses = expenses.filter(expense => expense._id !== id);
+  setExpenses(updatedExpenses);
     try {
       await axios.delete(`http://localhost:5000/expense/${id}`);
 
     } catch (error) {
       console.error('Error deleting expense:', error);
+      setExpenses(prevExpenses => [...prevExpenses, expenseToDelete]);
     }
   };
 
@@ -116,14 +139,14 @@ function displayCategoryIcon(category) {
             <input name='amount' type="number" placeholder='Expense Amount' value={amount} onChange={(e)=>{setAmount(e.target.value)}} required=''/>
             <input name='date' type="date" placeholder='Enter a Date' value={date} onChange={(e)=>{setDate(e.target.value)}}/>
             <select name="category" type="text" id="" value={category} onChange={(e)=>{setCategory(e.target.value)}}>
-              <option value='rent'>House Rent</option>
-              <option value="transport">Transportation</option>
+              <option value='House Rent'>House Rent</option>
+              <option value="Transportation">Transportation</option>
               <option value="Investments">Investments</option>
               <option value="Stocks">Stocks</option>
-              <option value="food">Food and Groceries</option>
-              <option value="Others">Health</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="education">Education</option>
+              <option value="Food and Groceries">Food and Groceries</option>
+              <option value="Health">Health</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Education">Education</option>
               <option value="debt">debt</option>
               <option value="others">others</option>
             </select>
