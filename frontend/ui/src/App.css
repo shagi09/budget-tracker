@@ -253,6 +253,10 @@ input:focus {
     color: #15ad3b;
     background-color: white;
   }
+  .expense-btn:hover{
+    color: #b01206;
+    background-color: white;
+  }
   .footer-icons ul,.footer-nav ul {
     display: flex;
     justify-content: center;
@@ -290,6 +294,15 @@ input:focus {
   margin-top: 10px;
 }
 .income-box{
+  background-color: #15ad3b;
+  margin-top: 15px;
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
+  width: 600px;
+  margin-left: 200px;
+}
+.expense-box{
   background-color: rgb(164, 48, 6);
   margin-top: 15px;
   padding: 20px;

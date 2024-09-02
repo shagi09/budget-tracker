@@ -156,7 +156,7 @@ function displayCategoryIcon(category) {
           <div className='incomes'>
             {
               expenses.map((expense)=>(
-                <div className='income-box' key={expense.id}>
+                <div className='expense-box' key={expense.id}>
                   <div className='income-category'>{expense.category} </div>
                   <div className='income-contents'>
                     <div className='income-icon'>{displayCategoryIcon(expense.category)}</div>
