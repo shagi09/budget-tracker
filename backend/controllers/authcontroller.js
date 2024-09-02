@@ -11,9 +11,9 @@ function createToken(id){
 
 
 module.exports.SignUp_Post=async(req,res)=>{
-    const{name,email,password,confirmPassword}=req.body
+    const{name,email,password}=req.body
     try{
-        const user=await User.create({name,email,password,confirmPassword})
+        const user=await User.create({name,email,password})
         const token=createToken(user._id)
         res.cookie('jwt',token,{httpOnly:true,maxAge: 3600000})
 

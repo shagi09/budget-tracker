@@ -17,11 +17,6 @@ const UserSchema=new mongoose.Schema({
         required:true
 
     },
-    confirmPassword:{
-        type:String,
-        required:true
-
-    }
 })
 UserSchema.pre('save',async function(next){
     const salt=await bcrypt.genSalt();
