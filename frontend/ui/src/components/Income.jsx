@@ -40,7 +40,7 @@ async function HandleSubmit (e){
     ]);
 
     
-    const response=await axios.post('http://localhost:5000/income',newIncome)
+    const response=await axios.post('http://localhost:5000/income',newIncome,{withCredentials: true})
     setIncomes(prevIncomes => 
       prevIncomes.map(income => 
         income.id === Date.now() ? response.data : income

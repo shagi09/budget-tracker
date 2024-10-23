@@ -1,7 +1,10 @@
 const Income=require('../models/income')
+
+
 module.exports.income_Get=async (req,res)=>{
     try{
-        const incomes=await Income.find()
+        const userId=req.userId;
+        const incomes=await Income.find({user:userId})
         res.status(201).json(incomes)
 
     }
@@ -14,8 +17,13 @@ module.exports.income_Get=async (req,res)=>{
 }
 module.exports.income_Post=async (req,res)=>{
     const{amount,category,description,date}=req.body
+    console.log('Income data received:', req.body);
     try{
-        const income=await Income.create({amount,category,description,date})
+        const userId=req.userId;
+        if (!userId) {
+            return res.status(403).json({ message: 'User ID not found' });
+        }
+        const income=await Income.create({amount,category,description,date,user:userId})
         res.status(201).json(income)
     }
     catch(err){
