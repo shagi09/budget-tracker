@@ -45,7 +45,7 @@ async function HandleSubmit (e){
     ]);
 
     
-    const response=await axios.post('http://localhost:5000/expense',newExpense)
+    const response=await axios.post('http://localhost:5000/expense',newExpense,{withCredentials:true})
     setExpenses(prevExpenses => 
       prevExpenses.map(expense => 
         expense.id === Date.now() ? response.data : expense
@@ -80,9 +80,9 @@ async function HandleSubmit (e){
 }
 async function fetchExpenses(){
   try{
-    const response=await axios.get('http://localhost:5000/expense')
+    const response=await axios.get('http://localhost:5000/expense',{withCredentials:true})
     setExpenses(response.data)
-    console.log(response.data)
+    console.log('fetched expenses',response.data)
 }
   catch(err){
     console.log(err)
@@ -100,7 +100,8 @@ useEffect(()=>{
   const updatedExpenses = expenses.filter(expense => expense._id !== id);
   setExpenses(updatedExpenses);
     try {
-      await axios.delete(`http://localhost:5000/expense/${id}`);
+      await axios.delete(`http://localhost:5000/expense/${id}`,{withCredentials:true});
+      console.log('deleting expense id:',id)
 
     } catch (error) {
       console.error('Error deleting expense:', error);
