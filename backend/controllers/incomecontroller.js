@@ -28,6 +28,7 @@ module.exports.income_Post=async (req,res)=>{
     }
     catch(err){
         res.status(400).json({ error: err.message });
+        console.log(err)
     }
 
 
@@ -36,12 +37,17 @@ module.exports.income_Post=async (req,res)=>{
 }
 module.exports.income_Delete=async (req,res)=>{
         try {
-            const income = await Income.findByIdAndDelete(req.params.id);
+            const userId=req.userId;
+            const id=req.params.id;
+            console.log('id to delete',id)
+            console.log('user id',userId)
+            const income = await Income.findOneAndDelete({_id: id,user:userId});
             if (!income) {
                 return res.status(404).json({ error: 'income not found' });
             }
             res.json({ message: 'income deleted successfully' });
         } catch (err) {
+            console.log('err deleting income:',err)
             res.status(500).json({ error: err.message });
         }
     };

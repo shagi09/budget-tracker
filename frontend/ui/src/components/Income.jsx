@@ -75,9 +75,9 @@ async function HandleSubmit (e){
 }
 async function fetchIncomes(){
   try{
-    const response=await axios.get('http://localhost:5000/income')
+    const response=await axios.get('http://localhost:5000/income',{withCredentials:true})
     setIncomes(response.data)
-    console.log(response.data)
+    console.log('fetched incomes',response.data)
 }
   catch(err){
     console.log(err)
@@ -95,10 +95,11 @@ useEffect(()=>{
   const updatedIncomes = incomes.filter(income => income._id !== id);
   setIncomes(updatedIncomes);
     try {
-      await axios.delete(`http://localhost:5000/income/${id}`);
+      await axios.delete(`http://localhost:5000/income/${id}`,{withCredentials:true});
+      console.log('Deleting income ID:', id)
 
     } catch (error) {
-      console.error('Error deleting income:', error);
+      console.error('Error deleting income:', error.response ? error.response.data : error.message);
       setIncomes(prevIncomes => [...prevIncomes, incomeToDelete]);
     }
   };
@@ -143,7 +144,7 @@ function displayCategoryIcon(category) {
           <div className='incomes'>
             {
               incomes.map((income)=>(
-                <div className='income-box' key={income.id}>
+                <div className='income-box' key={income._id}>
                   <div className='income-category'>{income.category} </div>
                   <div className='income-contents'>
                     <div className='income-icon'>{displayCategoryIcon(income.category)}</div>
@@ -151,7 +152,7 @@ function displayCategoryIcon(category) {
                     <div className='income-date'><MdOutlineDateRange style={{fontSize: '15px'}}/>{income.date.split('T')[0]} </div>
                     <div className='income-description'><FaMessage style={{fontSize: '10px'}}/>{income.description} </div>
                     <div className='delete-income'><button className='dlt-btn' onClick={()=>{
-                          console.log('Deleting income ID:', income._id)
+                          console.log('ID to delete:', income._id); // Log the ID
                           HandleDelete(income._id)}}><MdDelete style={{cursor:'pointer', fontSize: '25px'}}/></button></div>
                   </div>
 
