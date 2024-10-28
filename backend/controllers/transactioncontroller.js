@@ -1,6 +1,7 @@
 const Expense=require('../models/expense')
 module.exports.transaction_Get=async (req,res)=>{
     const { date } = req.body;
+    const userId=req.userId;
 
     try {
         // Convert the date from string to a Date object
@@ -10,6 +11,7 @@ module.exports.transaction_Get=async (req,res)=>{
 
         // Fetch expenses for the specified date
         const expenses = await Expense.find({
+            user:userId,
             date: {
                 $gte: startOfDay,
                 $lte: endOfDay
