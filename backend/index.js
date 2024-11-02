@@ -7,6 +7,7 @@ const authroutes=require('./routes/authroutes')
 const expenseroutes=require('./routes/expenseroutes')
 const incomeroutes=require('./routes/incomeroutes')
 const transactionroutes=require('./routes/transactionroutes')
+const profileroutes=require('./routes/profileroutes')
 
 const app=express();
 app.use(cookieParser())
@@ -34,3 +35,4 @@ app.use(authroutes)
 app.use(expenseroutes)
 app.use(incomeroutes)
 app.use(transactionroutes)
+app.use(profileroutes)

@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from 'axios'
+import { useState,useEffect } from 'react'
 import {Chart, defaults as ChartJS, defaults} from 'chart.js/auto'
 import {Bar,Doughnut,Line} from 'react-chartjs-2'
 import data from '../data/data.json'
@@ -10,67 +12,96 @@ defaults.responsive=true
 
 
 const Statistics = () => {
+  const [monthlyData, setMonthlyData] = useState({ income: [], expense: [] });
+  const [error, setError] = useState(null);
+
+  const fetchMonthlyData = async () => {
+    try {
+      const [incomeResponse, expenseResponse] = await Promise.all([
+        axios.get('http://localhost:5000/income/all', { withCredentials: true }),
+        axios.get('http://localhost:5000/expense/all', { withCredentials: true }),
+      ]);
+
+      console.log('Income data:', incomeResponse.data); // Debugging line
+      console.log('Expense data:', expenseResponse.data); // Debugging line
+      const expenseData = expenseResponse.data.map(exp => exp.amount); 
+      const incomeData = incomeResponse.data.map(inc => inc.amount); 
+
+      setMonthlyData({
+        income: incomeData,
+        expense: expenseData,
+      });
+    } catch (err) {
+      console.error('Error fetching monthly data:', err.response ? err.response.data : err.message);
+      setError('Failed to fetch monthly data.');
+    }
+  };
+
+  useEffect(() => {
+    fetchMonthlyData();
+  }, []); // Fetch data once on component mount
   return (
     <div className='statistics-container'>
-        <div className='bar-chart'>
-          <Line
+      <div className='bar-chart'>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <Line
           data={{
-            labels:data.map((data)=>data.label),
-            datasets:[
+            labels: [
+              'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+            ],
+            datasets: [
               {
-                label:"income",
-                data:data.map((data)=>data.income),
-                backgroundColor: 'green',
-                borderColor:'green'
+                label: "Income",
+                data: monthlyData.income,
+                backgroundColor: 'rgba(0, 255, 0, 0.5)',
+                borderColor: 'green',
+                fill: true,
               },
               {
-                label:"expense",
-                data:data.map((data)=>data.expense),
-                backgroundColor: 'red',
-                borderColor:'red'
-              }
-            ]
+                label: "Expense",
+                data: monthlyData.expense,
+                backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                borderColor: 'red',
+                fill: true,
+              },
+            ],
           }}
           options={{
-            plugins:{
-              title:{
+            plugins: {
+              title: {
                 display: true,
-                text: "Trends",
+                text: "Monthly Income and Expenses",
                 color: 'white',
                 font: {
-                  size: 35 // Increase title font size
-                }
-        
+                  size: 35,
+                },
               },
               legend: {
                 labels: {
                   color: 'white',
                   font: {
-                    size: 15 // Increase title font size
-                  }
-           // Change legend label color
-                }
-              }
-
+                    size: 15,
+                  },
+                },
+              },
             },
             scales: {
               x: {
                 ticks: {
-                  color: 'white' // Change x-axis label color
-                }
+                  color: 'white',
+                },
               },
               y: {
                 ticks: {
-                  color: 'white' // Change y-axis label color
-                }
-              }
+                  color: 'white',
+                },
+              },
             },
-            
-          }}/>
+          }}
+        />
+      </div>
 
-
-
-        </div>
         <div className='pie-chart'>
         <Doughnut
           data={{

@@ -45,6 +45,6 @@ module.exports.LogIn_Post=async(req,res)=>{
 
 }
 module.exports.LogOut_Post=async(req,res)=>{
-    res.cookie('jwt','',{maxAge:0})
+    res.cookie('jwt','',{maxAge:0,httpOnly:true})
     res.json('logout success')
 }

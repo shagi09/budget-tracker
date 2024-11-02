@@ -42,6 +42,36 @@ module.exports.expense_GetByDate=async (req,res)=>{
     }
 };
 
+module.exports.expense_GetAll = async (req, res) => {
+    const userId = req.userId;
+
+    try {
+        // Fetch all expenses for the user
+        const expenses = await Expense.find({ user: userId });
+
+        // Group expenses by month
+        const monthlyExpenses = Array(12).fill(0); // Initialize an array for 12 months
+
+        expenses.forEach(expense => {
+            const month = expense.date.getMonth(); // Get month (0-11)
+            if (monthlyExpenses[month] === 0) {
+                monthlyExpenses[month] = {
+                    month: month + 1, // Store month as 1-12
+                    amount: expense.amount
+                };
+            }
+        });
+
+        // Prepare response data
+        const responseExpenses = monthlyExpenses.filter(exp => exp !== null);
+
+        res.status(200).json(responseExpenses);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
 module.exports.expense_Post=async (req,res)=>{
     const{amount,category,description,date}=req.body
     console.log('Expense data received:', req.body);

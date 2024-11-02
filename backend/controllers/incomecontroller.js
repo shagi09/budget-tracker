@@ -15,6 +15,42 @@ module.exports.income_Get=async (req,res)=>{
 
 
 }
+
+module.exports.income_GetAll = async (req, res) => {
+    const userId = req.userId;
+
+    try {
+        // Fetch all expenses for the user
+        const incomes = await Income.find({ user: userId });
+
+        // Group expenses by month
+        const monthlyIncomes = Array(12).fill(null); // Initialize an array for 12 months
+
+        incomes.forEach(income => {
+            if(income.date){
+                const month = income.date.getMonth(); // Get month (0-11)
+                if (monthlyIncomes[month] === null) {
+                    monthlyIncomes[month] = {
+                        month: month + 1, // Store month as 1-12
+                        amount: income.amount
+                    };
+                }
+            }
+            else{
+                console.log('Invalid date for income:', income); 
+
+            }
+
+        });
+        const responseIncomes = monthlyIncomes.filter(inc => inc !== null);
+
+
+
+        res.status(200).json(responseIncomes);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
 module.exports.income_Post=async (req,res)=>{
     const{amount,category,description,date}=req.body
     console.log('Income data received:', req.body);
